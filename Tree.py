@@ -60,16 +60,57 @@ class BinaryTree:
             if cur_node.right:
                 queue.append(cur_node.right)
 
-    def show(self):
+    def _iterative_in(self):
+        stack = [self.root]
+        while stack[0]:
+            curr = stack[-1]
+            if curr is not None:
+                stack.append(curr.left)
+                continue
+            else:
+                stack.pop()
+                node = stack.pop()
+                stack.append(node.right)
+                if node == self.root:
+                    print(node, "root")
+                else:
+                    print(node)
 
-        print("Обход дерева в глубину --- ЛЦП")
-        self._dfs_in(self.root)
+    def _iterative_pr(self):
+        stack = [self.root]
+        while stack:
+            node = stack.pop()
+            if node == self.root:
+                print(node, "root")
+            else:
+                print(node)
+            if node.right is not None:
+                stack.append(node.right)
+            if node.left is not None:
+                stack.append(node.left)
+
+    def _iterative_po(self):
+        stack = [self.root]
+        while stack:
+            node = stack.pop()
+            if node.left is not None:
+                stack.append(node.left)
+            if node == self.root:
+                print(node, "root")
+            else:
+                print(node)
+            if node.right is not None:
+                stack.append(node.right)
+
+
+
+
+    def show(self):
+        self._iterative_in()
         print('-------------------------------')
-        print("Обход дерева в глубину --- ЦЛП")
-        self._dfs_pr(self.root)
+        self._iterative_pr()
         print('-------------------------------')
-        print("Обход дерева в глубину --- ЛПЦ")
-        self._dfs_po(self.root)
+        self._iterative_po()
         print('-------------------------------')
         print("Обход дерева в ширину")
         self._bfs()
